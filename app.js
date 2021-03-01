@@ -55,25 +55,56 @@ function getPosts() {
 
 createPost({ title: "Post Four", body: "This is post four" }).then(getPosts);
 
-// A Simple example to understand promises
-function DeliveryGuy() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (!err) {
-        console.log("The promise made by DeliveryGuy has been resolved");
-        resolve("Your Package has been delivered");
-      } else {
-        console.log("The promise made by DeliveryGuy has been resolved");
-        reject("Your Package has not been delivered");
-      }
-    });
-}
+// -------------------------------------------------------------------
 
+// Example Two
 
-DeliveryGuy()
-  .then(() => {
-    console.log("Thanks for delivering the Package");
+// Create a promise function that adds to number, if the answer is correct, then appreciate it other wise tell it to go home
+let addNumbers = new Promise((resolve, reject) => {
+  let operation = 2 + 0;
+  if (operation == 2) {
+    resolve("Success, added two numbers succesfuly");
+  } else {
+    reject("Failed, wrong answer!");
+  }
+});
+
+// appreciating the promise when it gets the correct answer
+addNumbers
+  .then((message) => {
+    console.log("Thanks a lot");
+    // Telling the promise to go home if it fails to give me the correct answer
   })
   .catch(() => {
-    console.log("I hope you can deliver the package on time next time");
+    console.log("Go Home!");
+  });
+
+// -------------------------------------------------------------------
+
+// Exmaple Three
+let userWatchingDevEd = true;
+let userWatchingDennis = false;
+
+const watchTutorialPromise = new Promise((resolve, reject) => {
+  if (userWatchingDevEd) {
+    reject({
+      name: "User is watching Dev Ed",
+      message: "He thinks Ed is better than me in js",
+    });
+  } else if (userWatchingDennis) {
+    reject({
+      name: "User is watching Dennis",
+      messgae: "He thinks Dennis is better than me in Django",
+    });
+  } else {
+    resolve(console.log("Hooray, I am bette than both Dennis and Ed"));
+  }
+});
+
+watchTutorialPromise()
+  .then((message) => {
+    console.log(`Success: ${message}`);
+  })
+  .cath((error) => {
+    console.log(`${error.name} ${error.message}`);
   });
